@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 25 12:28:20 2019
-
-@author: ismaeliessfalcon
-"""
 import VortexPanel as vp
 import matplotlib.pyplot as plt
 import numpy as np
@@ -70,7 +63,9 @@ plot_naca(x, m=m, p=p, t=t, N=N)
 upper_surface = naca_final(x, m, p, t, c)[0]
 lower_surface = naca_final(x, m, p, t, c)[1]
 
-foil = vp.make_spline(N=N,x=x,y=y)   # define geometry
+xs = np.concatenate((lower_surface[0][:-1], upper_surface[0]))
+ys = np.concatenate((lower_surface[1][:-1], upper_surface[1]))
+foil = vp.make_spline(N=N,x=xs,y=ys)   # define geometry
 alpha = np.pi/16   # angle of attack
 foil.solve_gamma(alpha,kutta=[(0,-1)])  # solve
 foil.plot_flow()            # plot 
